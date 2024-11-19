@@ -19,28 +19,39 @@ public class Queen extends ChessPiece {
             return false; // Нельзя остаться на месте
         }
 
-        // Логика движения ферзя - может двигаться как ладья и как слон
-        // Проверяем, что ферзь движется по диагонали, вертикали или горизонтали
-        if (Math.abs(toLine - line) == Math.abs(toColumn - column) || line == toLine || column == toColumn) {
-            int stepLine = (toLine > line) ? 1 : (toLine < line) ? -1 : 0;
-            int stepColumn = (toColumn > column) ? 1 : (toColumn < column) ? -1 : 0;
+        // Логика движения ферзя: либо по диагонали, либо по прямой
+        int stepLine = 0;
+        int stepColumn = 0;
 
-            int currentLine = line + stepLine;
-            int currentColumn = column + stepColumn;
+        if (Math.abs(toLine - line) == Math.abs(toColumn - column)) {
+            // Ферзь движется по диагонали
+            stepLine = (toLine > line) ? 1 : -1;
+            stepColumn = (toColumn > column) ? 1 : -1;
+        } else if (line == toLine || column == toColumn) {
+            // Ферзь движется по горизонтали или вертикали
+            stepLine = (line == toLine) ? 0 : (toLine > line ? 1 : -1);
+            stepColumn = (column == toColumn) ? 0 : (toColumn > column ? 1 : -1);
+        } else {
+            // Ни по диагонали, ни по прямой — ход невозможен
+            return false;
+        }
 
-            while (currentLine != toLine || currentColumn != toColumn) {
-                if (chessBoard.board[currentLine][currentColumn] != null) {
-                    return false; // Если на пути есть фигура, ход невозможен
-                }
-                currentLine += stepLine;
-                currentColumn += stepColumn;
+        // Проверяем, что путь между текущей и целевой позицией свободен
+        int currentLine = line + stepLine;
+        int currentColumn = column + stepColumn;
+
+        while (currentLine != toLine || currentColumn != toColumn) {
+            if (chessBoard.board[currentLine][currentColumn] != null) {
+                return false; // Если на пути есть фигура, ход невозможен
             }
+            currentLine += stepLine;
+            currentColumn += stepColumn;
+        }
 
-            // Если целевая клетка либо пуста, либо занята фигурой противника, ход возможен
-            ChessPiece targetPiece = chessBoard.board[toLine][toColumn];
-            if (targetPiece == null || !targetPiece.getColor().equals(this.color)) {
-                return true;
-            }
+        // Если целевая клетка либо пуста, либо занята фигурой противника, ход возможен
+        ChessPiece targetPiece = chessBoard.board[toLine][toColumn];
+        if (targetPiece == null || !targetPiece.getColor().equals(this.color)) {
+            return true;
         }
 
         return false;
