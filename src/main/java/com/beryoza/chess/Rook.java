@@ -1,12 +1,30 @@
 package com.beryoza.chess;
 
+/**
+ * Класс Rook представляет ладью в шахматах.
+ * Ладья может двигаться по горизонтали или вертикали.
+ */
 public class Rook extends ChessPiece {
 
-    // Конструктор, который принимает цвет фигуры
+    /**
+     * Конструктор для создания ладьи с указанным цветом.
+     *
+     * @param color цвет ладьи ("White" или "Black").
+     */
     public Rook(String color) {
         super(color);
     }
 
+    /**
+     * Определяет, может ли ладья двигаться на заданную позицию на шахматной доске.
+     *
+     * @param chessBoard текущая шахматная доска.
+     * @param line начальная строка.
+     * @param column начальный столбец.
+     * @param toLine конечная строка.
+     * @param toColumn конечный столбец.
+     * @return true, если ладья может переместиться на заданную позицию, иначе false.
+     */
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         // Проверяем, чтобы позиции были в пределах доски
@@ -48,6 +66,11 @@ public class Rook extends ChessPiece {
         return false;
     }
 
+    /**
+     * Возвращает символ, представляющий ладью.
+     *
+     * @return "R" для ладьи.
+     */
     @Override
     public String getSymbol() {
         return "R"; // Символ, который обозначает ладью

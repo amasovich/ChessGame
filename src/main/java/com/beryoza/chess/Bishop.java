@@ -1,12 +1,30 @@
 package com.beryoza.chess;
 
+/**
+ * Класс Bishop представляет слона в шахматах.
+ * Слон может двигаться по диагонали.
+ */
 public class Bishop extends ChessPiece {
 
-    // Конструктор, который принимает цвет фигуры
+    /**
+     * Конструктор для создания слона с указанным цветом.
+     *
+     * @param color цвет слона ("White" или "Black").
+     */
     public Bishop(String color) {
         super(color);
     }
 
+    /**
+     * Определяет, может ли слон двигаться на заданную позицию на шахматной доске.
+     *
+     * @param chessBoard текущая шахматная доска.
+     * @param line начальная строка.
+     * @param column начальный столбец.
+     * @param toLine конечная строка.
+     * @param toColumn конечный столбец.
+     * @return true, если слон может переместиться на заданную позицию, иначе false.
+     */
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         // Проверяем, чтобы позиции были в пределах доски
@@ -48,6 +66,11 @@ public class Bishop extends ChessPiece {
         return false;
     }
 
+    /**
+     * Возвращает символ, представляющий слона.
+     *
+     * @return "B" для слона.
+     */
     @Override
     public String getSymbol() {
         return "B"; // Символ, который обозначает слона

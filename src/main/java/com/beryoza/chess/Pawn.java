@@ -1,12 +1,31 @@
 package com.beryoza.chess;
 
+/**
+ * Класс Pawn представляет пешку в шахматах.
+ * Пешка может двигаться вперед на одну клетку, или на две клетки с начальной позиции.
+ * Пешка также может атаковать фигуры противника по диагонали.
+ */
 public class Pawn extends ChessPiece {
 
-    // Конструктор, который принимает цвет фигуры
+    /**
+     * Конструктор для создания пешки с указанным цветом.
+     *
+     * @param color цвет пешки ("White" или "Black").
+     */
     public Pawn(String color) {
         super(color);
     }
 
+    /**
+     * Определяет, может ли пешка двигаться на заданную позицию на шахматной доске.
+     *
+     * @param chessBoard текущая шахматная доска.
+     * @param line начальная строка.
+     * @param column начальный столбец.
+     * @param toLine конечная строка.
+     * @param toColumn конечный столбец.
+     * @return true, если пешка может переместиться на заданную позицию, иначе false.
+     */
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         // Проверяем, чтобы позиции были в пределах доски
@@ -46,6 +65,11 @@ public class Pawn extends ChessPiece {
         return false;
     }
 
+    /**
+     * Возвращает символ, представляющий пешку.
+     *
+     * @return "P" для пешки.
+     */
     @Override
     public String getSymbol() {
         return "P"; // Символ, который обозначает пешку

@@ -1,12 +1,30 @@
 package com.beryoza.chess;
 
+/**
+ * Класс Queen представляет ферзя в шахматах.
+ * Ферзь может двигаться по диагонали, горизонтали или вертикали.
+ */
 public class Queen extends ChessPiece {
 
-    // Конструктор, который принимает цвет фигуры
+    /**
+     * Конструктор для создания ферзя с указанным цветом.
+     *
+     * @param color цвет ферзя ("White" или "Black").
+     */
     public Queen(String color) {
         super(color);
     }
 
+    /**
+     * Определяет, может ли ферзь двигаться на заданную позицию на шахматной доске.
+     *
+     * @param chessBoard текущая шахматная доска.
+     * @param line начальная строка.
+     * @param column начальный столбец.
+     * @param toLine конечная строка.
+     * @param toColumn конечный столбец.
+     * @return true, если ферзь может переместиться на заданную позицию, иначе false.
+     */
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         // Проверяем, чтобы позиции были в пределах доски
@@ -57,6 +75,11 @@ public class Queen extends ChessPiece {
         return false;
     }
 
+    /**
+     * Возвращает символ, представляющий ферзя.
+     *
+     * @return "Q" для ферзя.
+     */
     @Override
     public String getSymbol() {
         return "Q"; // Символ, который обозначает ферзя

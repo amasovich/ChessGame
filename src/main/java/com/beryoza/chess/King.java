@@ -1,12 +1,30 @@
 package com.beryoza.chess;
 
+/**
+ * Класс King представляет короля в шахматах.
+ * Король может двигаться на одну клетку в любом направлении.
+ */
 public class King extends ChessPiece {
 
-    // Конструктор, который принимает цвет фигуры
+    /**
+     * Конструктор для создания короля с указанным цветом.
+     *
+     * @param color цвет короля ("White" или "Black").
+     */
     public King(String color) {
         super(color);
     }
 
+    /**
+     * Определяет, может ли король двигаться на заданную позицию на шахматной доске.
+     *
+     * @param chessBoard текущая шахматная доска.
+     * @param line начальная строка.
+     * @param column начальный столбец.
+     * @param toLine конечная строка.
+     * @param toColumn конечный столбец.
+     * @return true, если король может переместиться на заданную позицию, иначе false.
+     */
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         // Проверяем, чтобы позиции были в пределах доски
@@ -31,12 +49,24 @@ public class King extends ChessPiece {
         return false;
     }
 
+    /**
+     * Возвращает символ, представляющий короля.
+     *
+     * @return "K" для короля.
+     */
     @Override
     public String getSymbol() {
         return "K"; // Символ, который обозначает короля
     }
 
-    // Метод, который проверяет, находится ли клетка под атакой
+    /**
+     * Проверяет, находится ли позиция под атакой.
+     *
+     * @param chessBoard текущая шахматная доска.
+     * @param line строка позиции.
+     * @param column столбец позиции.
+     * @return true, если позиция под атакой, иначе false.
+     */
     public boolean isUnderAttack(ChessBoard chessBoard, int line, int column) {
         // Проходим по всей доске и проверяем, может ли какая-либо фигура противника напасть на клетку
         for (int i = 0; i < 8; i++) {
