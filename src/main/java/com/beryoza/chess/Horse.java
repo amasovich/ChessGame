@@ -13,7 +13,7 @@ public class Horse extends ChessPiece {
             return false; // Если не в пределах доски - движение невозможно
         }
 
-        // Проверяем, чтобы конь не пытался остаться на той же позиции
+        // Проверяем, чтобы конь не оставался на той же позиции
         if (line == toLine && column == toColumn) {
             return false; // Нельзя остаться на месте
         }
@@ -24,8 +24,8 @@ public class Horse extends ChessPiece {
 
         // Проверяем, что цель соответствует движениям коня
         if ((dLine == 2 && dColumn == 1) || (dLine == 1 && dColumn == 2)) {
-            // Проверяем, что в целевой позиции либо пусто, либо находится фигура противника
             ChessPiece targetPiece = chessBoard.board[toLine][toColumn];
+            // Конь может ходить либо на пустую клетку, либо на клетку с фигурой противника
             if (targetPiece == null || !targetPiece.getColor().equals(this.color)) {
                 return true;
             }

@@ -62,5 +62,112 @@ public class ChessBoard {
     public boolean checkPos(int pos) {
         return pos >= 0 && pos <= 7;
     }
+
+    public boolean castling0() {
+        if (nowPlayer.equals("White")) {
+            // Проверяем начальные условия для рокировки белых по 0 столбцу
+            if (board[0][0] == null || board[0][4] == null) return false;
+
+            if (board[0][0].getSymbol().equals("R") && board[0][4].getSymbol().equals("K") &&
+                    board[0][1] == null && board[0][2] == null && board[0][3] == null) {
+
+                if (board[0][0].getColor().equals("White") && board[0][4].getColor().equals("White") &&
+                        board[0][0].check && board[0][4].check &&
+                        !new King("White").isUnderAttack(this, 0, 2)) {
+
+                    // Совершаем рокировку
+                    board[0][4] = null; // Убираем короля с текущей позиции
+                    board[0][2] = new King("White");
+                    board[0][2].check = false; // Король уже двигался
+                    board[0][0] = null; // Убираем ладью с текущей позиции
+                    board[0][3] = new Rook("White");
+                    board[0][3].check = false; // Ладья уже двигалась
+
+                    // Передаем ход черным
+                    nowPlayer = "Black";
+                    return true;
+                }
+            }
+        } else {
+            // Проверяем начальные условия для рокировки черных по 0 столбцу
+            if (board[7][0] == null || board[7][4] == null) return false;
+
+            if (board[7][0].getSymbol().equals("R") && board[7][4].getSymbol().equals("K") &&
+                    board[7][1] == null && board[7][2] == null && board[7][3] == null) {
+
+                if (board[7][0].getColor().equals("Black") && board[7][4].getColor().equals("Black") &&
+                        board[7][0].check && board[7][4].check &&
+                        !new King("Black").isUnderAttack(this, 7, 2)) {
+
+                    // Совершаем рокировку
+                    board[7][4] = null; // Убираем короля с текущей позиции
+                    board[7][2] = new King("Black");
+                    board[7][2].check = false; // Король уже двигался
+                    board[7][0] = null; // Убираем ладью с текущей позиции
+                    board[7][3] = new Rook("Black");
+                    board[7][3].check = false; // Ладья уже двигалась
+
+                    // Передаем ход белым
+                    nowPlayer = "White";
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean castling7() {
+        if (nowPlayer.equals("White")) {
+            // Проверяем начальные условия для рокировки белых по 7 столбцу
+            if (board[0][7] == null || board[0][4] == null) return false;
+
+            if (board[0][7].getSymbol().equals("R") && board[0][4].getSymbol().equals("K") &&
+                    board[0][5] == null && board[0][6] == null) {
+
+                if (board[0][7].getColor().equals("White") && board[0][4].getColor().equals("White") &&
+                        board[0][7].check && board[0][4].check &&
+                        !new King("White").isUnderAttack(this, 0, 6)) {
+
+                    // Совершаем рокировку
+                    board[0][4] = null; // Убираем короля с текущей позиции
+                    board[0][6] = new King("White");
+                    board[0][6].check = false; // Король уже двигался
+                    board[0][7] = null; // Убираем ладью с текущей позиции
+                    board[0][5] = new Rook("White");
+                    board[0][5].check = false; // Ладья уже двигалась
+
+                    // Передаем ход черным
+                    nowPlayer = "Black";
+                    return true;
+                }
+            }
+        } else {
+            // Проверяем начальные условия для рокировки черных по 7 столбцу
+            if (board[7][7] == null || board[7][4] == null) return false;
+
+            if (board[7][7].getSymbol().equals("R") && board[7][4].getSymbol().equals("K") &&
+                    board[7][5] == null && board[7][6] == null) {
+
+                if (board[7][7].getColor().equals("Black") && board[7][4].getColor().equals("Black") &&
+                        board[7][7].check && board[7][4].check &&
+                        !new King("Black").isUnderAttack(this, 7, 6)) {
+
+                    // Совершаем рокировку
+                    board[7][4] = null; // Убираем короля с текущей позиции
+                    board[7][6] = new King("Black");
+                    board[7][6].check = false; // Король уже двигался
+                    board[7][7] = null; // Убираем ладью с текущей позиции
+                    board[7][5] = new Rook("Black");
+                    board[7][5].check = false; // Ладья уже двигалась
+
+                    // Передаем ход белым
+                    nowPlayer = "White";
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }
 
