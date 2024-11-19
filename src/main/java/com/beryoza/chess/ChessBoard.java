@@ -13,19 +13,28 @@ public class ChessBoard {
     }
 
     public boolean moveToPosition(int startLine, int startColumn, int endLine, int endColumn) {
-        if (checkPos(startLine) && checkPos(startColumn)) {
+        if (checkPos(startLine) && checkPos(startColumn) && checkPos(endLine) && checkPos(endColumn)) {
+            ChessPiece piece = board[startLine][startColumn];
+            if (piece == null || !nowPlayer.equals(piece.getColor())) return false;
 
-            if (board[startLine][startColumn] == null ||
-                    !nowPlayer.equals(board[startLine][startColumn].getColor())) return false;
+            if (piece.canMoveToPosition(this, startLine, startColumn, endLine, endColumn)) {
+                // Передвигаем фигуру
+                board[endLine][endColumn] = piece;
+                board[startLine][startColumn] = null;
 
-            if (board[startLine][startColumn].canMoveToPosition(this, startLine, startColumn, endLine, endColumn)) {
-                board[endLine][endColumn] = board[startLine][startColumn]; // if piece can move, we moved a piece
-                board[startLine][startColumn] = null; // set null to previous cell
-                this.nowPlayer = this.nowPlayerColor().equals("White") ? "Black" : "White";
+                // Если двигалась ладья или король, устанавливаем check в false
+                if (piece instanceof King || piece instanceof Rook) {
+                    piece.check = false;
+                }
 
+                // Переключаем игрока
+                nowPlayer = nowPlayer.equals("White") ? "Black" : "White";
                 return true;
-            } else return false;
-        } else return false;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
     public void printBoard() {  //print board in console
