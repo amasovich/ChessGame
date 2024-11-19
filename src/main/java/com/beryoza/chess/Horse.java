@@ -2,9 +2,8 @@ package com.beryoza.chess;
 
 public class Horse extends ChessPiece {
 
-    // Конструктор, который принимает цвет фигуры
     public Horse(String color) {
-        super(color);  // Вызов конструктора родительского класса ChessPiece
+        super(color);
     }
 
     @Override
@@ -23,8 +22,16 @@ public class Horse extends ChessPiece {
         int dLine = Math.abs(toLine - line);
         int dColumn = Math.abs(toColumn - column);
 
-        // Конь может ходить только на 2 клетки в одном направлении и 1 в другом
-        return (dLine == 2 && dColumn == 1) || (dLine == 1 && dColumn == 2);
+        // Проверяем, что цель соответствует движениям коня
+        if ((dLine == 2 && dColumn == 1) || (dLine == 1 && dColumn == 2)) {
+            // Проверяем, что в целевой позиции либо пусто, либо находится фигура противника
+            ChessPiece targetPiece = chessBoard.board[toLine][toColumn];
+            if (targetPiece == null || !targetPiece.getColor().equals(this.color)) {
+                return true;
+            }
+        }
+
+        return false; // Во всех других случаях ход невозможен
     }
 
     @Override
@@ -32,5 +39,6 @@ public class Horse extends ChessPiece {
         return "H"; // Символ, который обозначает коня
     }
 }
+
 
 
